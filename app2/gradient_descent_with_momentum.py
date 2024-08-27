@@ -112,7 +112,7 @@ def plot_gradient_descent_with_momentum(initial_point, learning_rate, momentum):
 
 def create_app():
 
-    app = Dash(__name__, routes_pathname_prefix='/gradient_descent_with_momentum/')
+    app = Dash(__name__, routes_pathname_prefix='/gradient-descent-with-momentum/')
 
     app.layout = html.Div(
         style={'backgroundColor': '#f9f9f9', 'padding': '20px', 'max-width': '1200px', 'margin': '0 auto', 'font-family': 'Arial, sans-serif'}, children=[
