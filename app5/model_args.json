@@ -1,0 +1,26 @@
+{
+    "image_size": [
+        64,
+        64
+    ],
+    "channels_in": 1,
+    "hidden_layers": [
+        16,
+        32,
+        64,
+        128
+    ],
+    "classes": [
+        "cat",
+        "dog",
+        "bicycle",
+        "airplane",
+        "tree",
+        "house",
+        "flower",
+        "fish",
+        "car",
+        "apple"
+    ],
+    "num_classes": 10
+}
