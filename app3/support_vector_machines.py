@@ -93,7 +93,7 @@ def create_app():
     X, y = make_classification(n_samples=200, n_features=2, n_informative=2, n_redundant=0, 
                             n_clusters_per_class=1, class_sep=2.0, random_state=42)
 
-    app = Dash(__name__, routes_pathname_prefix='/app3/')
+    app = Dash(__name__, routes_pathname_prefix='/support_vector_machines/')
 
     app.layout = html.Div(
         style={'backgroundColor': '#f9f9f9', 'padding': '20px', 'max-width': '1200px', 'margin': '0 auto', 'font-family': 'Arial, sans-serif'}, children=[

@@ -106,7 +106,7 @@ def plot_gradient_descent(initial_point, learning_rate):
 
 def create_app():
     
-    app = Dash(__name__, routes_pathname_prefix='/app1/')
+    app = Dash(__name__, routes_pathname_prefix='/gradient_descent/')
 
     app.layout = html.Div(
         style={'backgroundColor': '#f9f9f9', 'padding': '20px', 'max-width': '1200px', 'margin': '0 auto', 'font-family': 'Arial, sans-serif'}, children=[

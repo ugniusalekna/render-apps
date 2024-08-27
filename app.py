@@ -1,10 +1,10 @@
 import os
 from flask import Flask
 
-from app1.app1 import create_app as create_app1
-from app2.app2 import create_app as create_app2
-from app3.app3 import create_app as create_app3
-from app4.app4 import create_app as create_app4
+from app1.gradient_descent import create_app as create_app1
+from app2.gradient_descent_with_momentum import create_app as create_app2
+from app3.support_vector_machines import create_app as create_app3
+from app4.feedforward_neural_network import create_app as create_app4
 
 server = Flask(__name__)
 
