@@ -104,8 +104,9 @@ def plot_gradient_descent(initial_point, learning_rate):
     return figure
 
 
-if __name__ == '__main__':
-    app = Dash(__name__)
+def create_app():
+    
+    app = Dash(__name__, routes_pathname_prefix='/app1/')
 
     app.layout = html.Div(
         style={'backgroundColor': '#f9f9f9', 'padding': '20px', 'max-width': '1200px', 'margin': '0 auto', 'font-family': 'Arial, sans-serif'}, children=[
@@ -132,5 +133,4 @@ if __name__ == '__main__':
     def update_graph_gd(initial_point, learning_rate):
         return plot_gradient_descent(initial_point, learning_rate)
 
-    port = int(os.environ.get('PORT', 8050))
-    app.run_server(debug=True, host='0.0.0.0', port=port)
+    return app

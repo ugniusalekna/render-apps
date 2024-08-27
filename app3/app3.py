@@ -88,12 +88,12 @@ def plot_decision_boundary(X, y, clf, show_support_vectors=True):
     return fig
 
 
-if __name__ == '__main__':
+def create_app():
 
     X, y = make_classification(n_samples=200, n_features=2, n_informative=2, n_redundant=0, 
                             n_clusters_per_class=1, class_sep=2.0, random_state=42)
 
-    app = Dash(__name__)
+    app = Dash(__name__, routes_pathname_prefix='/app3/')
 
     app.layout = html.Div(
         style={'backgroundColor': '#f9f9f9', 'padding': '20px', 'max-width': '1200px', 'margin': '0 auto', 'font-family': 'Arial, sans-serif'}, children=[
@@ -117,5 +117,4 @@ if __name__ == '__main__':
         svm.fit(X, y)
         return plot_decision_boundary(X, y, clf=svm, show_support_vectors=True)
     
-    port = int(os.environ.get('PORT', 8052))
-    app.run_server(debug=True, host='0.0.0.0', port=port)
+    return app

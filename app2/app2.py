@@ -110,9 +110,9 @@ def plot_gradient_descent_with_momentum(initial_point, learning_rate, momentum):
     return figure
 
 
-if __name__ == '__main__':
+def create_app():
 
-    app = Dash(__name__)
+    app = Dash(__name__, routes_pathname_prefix='/app2/')
 
     app.layout = html.Div(
         style={'backgroundColor': '#f9f9f9', 'padding': '20px', 'max-width': '1200px', 'margin': '0 auto', 'font-family': 'Arial, sans-serif'}, children=[
@@ -137,8 +137,8 @@ if __name__ == '__main__':
         Input('initial-point', 'value'),
         Input('learning-rate', 'value'),
         Input('momentum', 'value'))
+    
     def update_graph_gd(initial_point, learning_rate, momentum):
         return plot_gradient_descent_with_momentum(initial_point, learning_rate, momentum)
 
-    port = int(os.environ.get('PORT', 8051))
-    app.run_server(debug=True, host='0.0.0.0', port=port)
+    return app

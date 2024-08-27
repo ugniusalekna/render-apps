@@ -27,12 +27,12 @@ def tanh(x):
     return np.tanh(x)
 
     
-if __name__ == '__main__':
+def create_app():
 
     x_seq = np.linspace(-3, 3, 100).reshape(-1, 1)
     y_seq = np.sin(x_seq) + np.random.normal(0, 0.25, 100).reshape(-1, 1)
 
-    app = Dash(__name__)
+    app = Dash(__name__, routes_pathname_prefix='/app4/')
 
     app.layout = html.Div(
         style={'backgroundColor': '#f9f9f9', 'padding': '20px', 'max-width': '800px', 'margin': '0 auto', 'font-family': 'Arial, sans-serif'}, children=[
@@ -118,5 +118,4 @@ if __name__ == '__main__':
             )
         }
 
-    port = int(os.environ.get('PORT', 8053))
-    app.run_server(debug=True, host='0.0.0.0', port=port)
+    return app
