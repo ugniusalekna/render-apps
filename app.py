@@ -1,12 +1,16 @@
 import os
 from flask import Flask
 
-from app1.gradient_descent import create_app as create_app1
-from app2.gradient_descent_with_momentum import create_app as create_app2
+from app0.gradient_descent import create_app as create_app0
+from app1.gradient_descent_with_momentum import create_app as create_app1
+from app2.stochastic_gradient_descent import create_app as create_app2
 from app3.support_vector_machines import create_app as create_app3
 from app4.feedforward_neural_network import create_app as create_app4
 
 server = Flask(__name__)
+
+app0 = create_app0()
+app0.init_app(server)
 
 app1 = create_app1()
 app1.init_app(server)
