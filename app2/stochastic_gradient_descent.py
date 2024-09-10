@@ -1,6 +1,5 @@
 import math
 import numpy as np
-import matplotlib.pyplot as plt
 from sklearn.metrics import mean_squared_error as mse
 import plotly.graph_objects as go
 from dash import Dash, dcc, html, no_update
@@ -79,13 +78,19 @@ def plot_sgd_path_contour(path, X, y):
         y=[theta_path[-1, 2]],
         mode='markers',
         marker=dict(color='black', size=10, symbol='x'),
-        name='Final Theta'
+        name='Final θ'
     ))
 
     fig.update_layout(
-        title='SGD Path on Empirical Risk Contour',
-        xaxis_title='$\theta_1',
-        yaxis_title='$\theta_2',
+        title={
+            'text': "SGD Path on Empirical Risk Contour",
+            'x': 0.5,
+            'xanchor': 'center',
+            'y': 0.95,
+            'yanchor': 'bottom'
+        },
+        xaxis_title='θ<sub>1</sub>',
+        yaxis_title='θ<sub>2</sub>',
         xaxis=dict(
             range=[-30, 5],
             title_standoff=10,
@@ -108,6 +113,7 @@ def plot_sgd_path_contour(path, X, y):
 
 
 def init_data(num_samples=100):
+    np.random.seed(42)
 
     X = 2 - 3 * np.random.normal(0, 1, num_samples)
     y = X - 2 * (X ** 2) + np.random.normal(-3, 10, num_samples)
