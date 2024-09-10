@@ -150,7 +150,7 @@ def create_app():
                             'margin': '10px auto',
                             'width': '200px'
                         })
-        ], style={'width': '80%', 'margin': '0 auto'}),
+        ]),
     ])
 
     @app.callback(
