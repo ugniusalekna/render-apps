@@ -26,7 +26,6 @@ app4 = create_app4()
 app4.init_app(server)
 
 app6 = create_app6()
-app6.init_app(server)
 server.register_blueprint(app6, url_prefix='/tensorboard-view')
 
 if __name__ == "__main__":
