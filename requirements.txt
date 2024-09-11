@@ -3,3 +3,4 @@ flask
 plotly
 numpy
 scikit-learn
+tensorboard
