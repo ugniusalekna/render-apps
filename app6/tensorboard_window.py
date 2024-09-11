@@ -9,12 +9,13 @@ def create_app():
 
     @bp.route('/tensorboard')
     def tensorboard():
-        port = 6006
+        port = os.environ.get("PORT", 6006)
+        
         subprocess.Popen(['tensorboard', '--logdir', TENSORBOARD_LOGDIR, '--host', '0.0.0.0', '--port', str(port)])
 
         tensorboard_template = f'''
         <h1>TensorBoard Dashboard</h1>
-        <iframe src="http://0.0.0.0:{port}" width="100%" height="800px"></iframe>
+        <iframe src="https://render-apps-h1wm.onrender.com:{port}" width="100%" height="800px"></iframe>
         '''
         return render_template_string(tensorboard_template)
 
