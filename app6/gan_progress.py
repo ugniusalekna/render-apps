@@ -10,6 +10,7 @@ def fetch_github_images(repo, path):
     response = requests.get(url)
     if response.status_code == 200:
         files = response.json()
+        print(files)
         return [file['name'] for file in files if file['name'].endswith('.png')]
     else:
         print(f"Error fetching files: {response.status_code}")
