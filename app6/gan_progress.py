@@ -11,7 +11,7 @@ def fetch_github_images(repo, path):
     if response.status_code == 200:
         files = response.json()
         print(files)
-        return [file['name'] for file in files if file['name'].endswith('.png')]
+        return [file['html_url'] for file in files]
     else:
         print(f"Error fetching files: {response.status_code}")
         return []
@@ -21,9 +21,7 @@ def create_app():
     repo = "ugniusalekna/render-apps"
     path = "logs/09-18_23-59-22/generated_vs_real"
 
-    image_filenames = fetch_github_images(repo, path)
-    base_url = f"https://raw.githubusercontent.com/{repo}/main/{path}/"
-    image_urls = [base_url + filename for filename in image_filenames]
+    image_urls = fetch_github_images(repo, path)
 
     if not image_urls:
         raise ValueError("No images found in the directory.")
