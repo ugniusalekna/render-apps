@@ -7,11 +7,14 @@ from dash.dependencies import Input, Output
 
 def fetch_github_images(repo, path):
     url = f"https://api.github.com/repos/{repo}/contents/{path}"
+    headers = {
+        'User-Agent': 'ugniusalekna' 
+    }
+    response = requests.get(url, headers=headers)
+
     response = requests.get(url)
-    print(' - - - - - - -', response.status_code)
     if response.status_code == 200:
         files = response.json()
-        print(files)
         return [file['html_url'] for file in files]
     else:
         print(f"Error fetching files: {response.status_code}")
