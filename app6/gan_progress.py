@@ -1,4 +1,3 @@
-import os
 import requests
 import dash
 from dash import dcc, html
