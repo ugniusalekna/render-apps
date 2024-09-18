@@ -7,16 +7,17 @@ from dash.dependencies import Input, Output
 def fetch_github_images(repo, path):
     url = f"https://api.github.com/repos/{repo}/contents/{path}"
     headers = {
-        'User-Agent': 'ugniusalekna'
+        'User-Agent': repo
     }
     response = requests.get(url, headers=headers)
+
     if response.status_code == 200:
         files = response.json()
         return [file['download_url'] for file in files]
     else:
         print(f"Error fetching files: {response.status_code}")
+        print(response.text)
         return []
-
 
 def create_app():
     repo = "ugniusalekna/render-apps"
