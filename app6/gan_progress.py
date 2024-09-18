@@ -7,7 +7,7 @@ from dash.dependencies import Input, Output
 def fetch_github_images(repo, path):
     url = f"https://api.github.com/repos/{repo}/contents/{path}"
     headers = {
-        'User-Agent': repo
+        'User-Agent': 'ugniusalekna'
     }
     response = requests.get(url, headers=headers)
 
