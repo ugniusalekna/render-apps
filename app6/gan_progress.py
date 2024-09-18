@@ -10,11 +10,9 @@ def fetch_github_images(repo, path):
         'User-Agent': repo
     }
     response = requests.get(url, headers=headers)
-
-    response = requests.get(url)
     if response.status_code == 200:
         files = response.json()
-        return [file['html_url'] for file in files]
+        return [file['download_url'] for file in files]
     else:
         print(f"Error fetching files: {response.status_code}")
         return []
