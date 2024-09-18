@@ -1,23 +1,32 @@
 import os
+import requests
 import dash
 from dash import dcc, html
 from dash.dependencies import Input, Output
-import base64
+
+
+def fetch_github_images(repo, path):
+    url = f"https://api.github.com/repos/{repo}/contents/{path}"
+    response = requests.get(url)
+    if response.status_code == 200:
+        files = response.json()
+        return [file['name'] for file in files if file['name'].endswith('.png')]
+    else:
+        print(f"Error fetching files: {response.status_code}")
+        return []
 
 
 def create_app():
-    log_dir = "/Users/ugniusalekna/Documents/NMA/render-apps/logs/09-18_23-59-22/generated_vs_real"
-    image_files = sorted([f for f in os.listdir(log_dir) if f.endswith('.png')])
+    repo = "ugniusalekna/render-apps"
+    path = "logs/09-18_23-59-22/generated_vs_real"
 
-    if not image_files:
+    image_filenames = fetch_github_images(repo, path)
+    base_url = f"https://raw.githubusercontent.com/{repo}/main/{path}/"
+    image_urls = [base_url + filename for filename in image_filenames]
+
+    if not image_urls:
         raise ValueError("No images found in the directory.")
-
-    def encode_image(image_file):
-        image_path = os.path.join(log_dir, image_file)
-        with open(image_path, 'rb') as f:
-            encoded = base64.b64encode(f.read()).decode()
-        return f"data:image/png;base64,{encoded}"
-
+    
     app = dash.Dash(__name__, 
                     external_stylesheets=[
                         "https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap",
@@ -41,9 +50,9 @@ def create_app():
             dcc.Slider(
                 id='epoch-slider',
                 min=1,
-                max=len(image_files),
+                max=len(image_urls),
                 value=1,
-                marks={i: str(i) for i in range(1, len(image_files) + 1)},
+                marks={i: str(i) for i in range(1, len(image_urls) + 1)},
                 step=1,
                 tooltip={"placement": "bottom", "always_visible": True}
             ),
@@ -57,12 +66,7 @@ def create_app():
         [Input('epoch-slider', 'value')]
     )
     def update_image(step):
-        image_file = image_files[step - 1]
-        encoded_image = encode_image(image_file)
-        return encoded_image, f'Images at Epoch {image_file.split("_")[-1].replace(".png", "")}'
+        image_url = image_urls[step - 1]
+        return image_url, f'Real VS Synthetic Images at Epoch {image_url.split("_")[-1].replace(".png", "")}'
 
     return app
-
-if __name__ == "__main__":
-    app = create_app()
-    app.run_server(debug=True, port=8080)
