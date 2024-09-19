@@ -16,7 +16,6 @@ def fetch_github_images(repo, path):
         return [file['download_url'] for file in files]
     else:
         print(f"Error fetching files: {response.status_code}")
-        print(response.text)
         return []
 
 def create_app():
