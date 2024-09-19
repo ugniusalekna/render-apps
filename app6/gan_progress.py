@@ -54,18 +54,17 @@ def create_app():
                 'margin': 'auto'
             }),
         ]),
-
         html.Div(
             dcc.Slider(
                 id='epoch-slider',
                 min=1,
                 max=len(image_urls),
                 value=1,
-                marks={i: str(i) for i in range(1, len(image_urls) + 1)},
+                marks={i: str(i) for i in range(1, len(image_urls) + 1) if i % 10 == 0},
                 step=1,
                 tooltip={"placement": "bottom", "always_visible": True}
             ),
-            style={'width': '40%', 'margin': 'auto', 'marginTop': '50px'}
+            style={'width': '100%', 'margin': 'auto', 'marginTop': '50px'}
         ),
     ], style={'fontFamily': 'Open Sans'})
 
