@@ -31,8 +31,10 @@ def create_app():
     repo = "ugniusalekna/render-apps"
     path = "logs/09-18_23-00-32/generated_vs_real"
 
-    image_urls = sorted(fetch_github_images(repo, path))
-
+    image_urls = sorted(
+        [f for f in fetch_github_images(repo, path)],
+        key=lambda f: int(f.split('_')[-1].replace('.png', ''))
+    )
     if not image_urls:
         raise ValueError("No images found in the directory.")
     
