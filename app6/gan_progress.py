@@ -5,6 +5,10 @@ from dash import dcc, html
 from dash.dependencies import Input, Output
 
 
+def extract_number(f):
+    return int(f.split('_')[-1].replace('.png', ''))
+
+
 def fetch_github_images(repo, path):
     token = os.getenv('GITHUB_TOKEN')  
     
@@ -23,7 +27,6 @@ def fetch_github_images(repo, path):
         return [file['download_url'] for file in files if file['name'].endswith('.png')]
     else:
         print(f"Error fetching files: {response.status_code}")
-        print("Response body:", response.text)
         return []
 
     
@@ -31,10 +34,9 @@ def create_app():
     repo = "ugniusalekna/render-apps"
     path = "logs/09-18_23-00-32/generated_vs_real"
 
-    image_urls = sorted(
-        [f for f in fetch_github_images(repo, path)],
-        key=lambda f: int(f.split('_')[-1].replace('.png', ''))
-    )
+    image_urls = fetch_github_images(repo, path)
+    image_urls = sorted(image_urls, key=extract_number)
+
     if not image_urls:
         raise ValueError("No images found in the directory.")
     
