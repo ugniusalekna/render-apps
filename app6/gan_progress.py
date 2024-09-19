@@ -1,3 +1,4 @@
+import os
 import requests
 import dash
 from dash import dcc, html
@@ -5,20 +6,27 @@ from dash.dependencies import Input, Output
 
 
 def fetch_github_images(repo, path):
+    token = os.getenv('GITHUB_TOKEN')  
+    
+    if not token:
+        raise ValueError("GitHub access token not found.")
+
     url = f"https://api.github.com/repos/{repo}/contents/{path}"
     headers = {
-        'User-Agent': repo
+        'User-Agent': repo,
+        'Authorization': f'token {token}'
     }
     response = requests.get(url, headers=headers)
 
     if response.status_code == 200:
         files = response.json()
-        return [file['download_url'] for file in files]
+        return [file['download_url'] for file in files if file['name'].endswith('.png')]
     else:
         print(f"Error fetching files: {response.status_code}")
         print("Response body:", response.text)
         return []
 
+    
 def create_app():
     repo = "ugniusalekna/render-apps"
     path = "logs/09-18_23-00-32/generated_vs_real"
